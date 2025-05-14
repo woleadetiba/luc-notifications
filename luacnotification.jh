@@ -1,16 +1,4 @@
 
-application {
-  config {
-    baseName luacNotification
-    applicationType microservice
-    packageName com.teqbridgeltd.lucapp.notifications
-    authenticationType keycloak
-    prodDatabaseType postgres
-    skipClient true
-  }
-  entities Notification, NotificationAttachment
-}
-
 //Dictionary
 entity Dictionary {
     id Long
