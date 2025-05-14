@@ -1,0 +1,65 @@
+
+application {
+  config {
+    baseName luacNotification
+    applicationType microservice
+    packageName com.teqbridgeltd.lucapp.notifications
+    authenticationType keycloak
+    prodDatabaseType postgres
+    skipClient true
+  }
+  entities Notification, NotificationAttachment
+}
+
+//Dictionary
+entity Dictionary {
+    id Long
+	keyName String
+    keyCode String
+    label String
+    description String
+}
+
+// Notification Module
+entity Notification {
+  id UUID
+  recipientEmails String
+  ccEmails String
+  subject String  
+  messageBody String  @Lob
+  retryCount Integer   
+  maxRetries Integer   
+  scheduledAt Instant
+  sentAt Instant,
+  errorMessage String @Lob
+  createdAt Instant 
+  createdBy String
+}
+
+relationship OneToOne {
+	Notification{status} to Dictionary
+}
+
+
+dto Notification with mapstruct
+paginate Notification with pagination
+
+
+// Notification Attachments
+entity NotificationAttachment {
+  id UUID
+  fileName String  
+  fileType String  
+  fileSize Long  
+  filePath String  
+  createdAt Instant  
+}
+
+relationship OneToMany {
+  Notification{attachments} to NotificationAttachment
+}
+
+dto NotificationAttachment with mapstruct
+paginate NotificationAttachment with pagination
+
+filter *
