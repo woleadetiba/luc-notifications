@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20250514104139"
+  },
+  "applications": "*",
+  "clientRootFolder": "LUCNotifications",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileSize",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "filePath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "LUCNotifications",
+  "name": "NotificationAttachment",
+  "pagination": "pagination",
+  "relationships": [],
+  "service": "serviceClass"
+}

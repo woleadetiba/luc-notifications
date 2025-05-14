@@ -1,0 +1,199 @@
+<div>
+  <h2 id="page-heading" data-cy="NotificationAttachmentHeading">
+    <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.home.title">Notification Attachments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-notification-attachment"
+        [routerLink]="['/lucnotifications/notification-attachment/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.home.createLabel"
+          >Create a new Notification Attachment</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label
+          class="visually-hidden"
+          for="currentSearch"
+          jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.home.search"
+          >Search for Notification Attachment</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="{{ 'lucNotificationsApp.lucNotificationsNotificationAttachment.home.search' | translate }}"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters" />
+
+  @if (notificationAttachments().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.home.notFound">No Notification Attachments found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.id">Id</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fileName">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileName">File Name</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fileType">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileType">File Type</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fileSize">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileSize">File Size</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="filePath">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.filePath">File Path</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notification.id">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.notification">Notification</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (notificationAttachment of notificationAttachments(); track trackId(notificationAttachment)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/lucnotifications/notification-attachment', notificationAttachment.id, 'view']">{{
+                  notificationAttachment.id
+                }}</a>
+              </td>
+              <td>{{ notificationAttachment.fileName }}</td>
+              <td>{{ notificationAttachment.fileType }}</td>
+              <td>{{ notificationAttachment.fileSize }}</td>
+              <td>{{ notificationAttachment.filePath }}</td>
+              <td>{{ notificationAttachment.createdAt | formatMediumDatetime }}</td>
+              <td>
+                @if (notificationAttachment.notification) {
+                  <div>
+                    <a [routerLink]="['/lucnotifications/notification', notificationAttachment.notification.id, 'view']">{{
+                      notificationAttachment.notification.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/lucnotifications/notification-attachment', notificationAttachment.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/lucnotifications/notification-attachment', notificationAttachment.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(notificationAttachment)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (notificationAttachments().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page, totalItems, itemsPerPage }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

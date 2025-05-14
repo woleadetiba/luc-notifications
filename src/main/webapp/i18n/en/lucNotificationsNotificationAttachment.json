@@ -1,0 +1,30 @@
+{
+  "lucNotificationsApp": {
+    "lucNotificationsNotificationAttachment": {
+      "home": {
+        "title": "Notification Attachments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Notification Attachment",
+        "createOrEditLabel": "Create or edit a Notification Attachment",
+        "search": "Search for Notification Attachment",
+        "notFound": "No Notification Attachments found"
+      },
+      "created": "A new Notification Attachment is created with identifier {{ param }}",
+      "updated": "A Notification Attachment is updated with identifier {{ param }}",
+      "deleted": "A Notification Attachment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Notification Attachment {{ id }}?"
+      },
+      "detail": {
+        "title": "Notification Attachment"
+      },
+      "id": "Id",
+      "fileName": "File Name",
+      "fileType": "File Type",
+      "fileSize": "File Size",
+      "filePath": "File Path",
+      "createdAt": "Created At",
+      "notification": "Notification"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20250514104137"
+  },
+  "applications": "*",
+  "clientRootFolder": "LUCNotifications",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "keyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "keyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "LUCNotifications",
+  "name": "Dictionary",
+  "relationships": [],
+  "service": "serviceClass"
+}

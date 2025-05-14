@@ -1,0 +1,84 @@
+{
+  "annotations": {
+    "changelogDate": "20250514104138"
+  },
+  "applications": "*",
+  "clientRootFolder": "LUCNotifications",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "recipientEmails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ccEmails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subject",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "messageBody",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "retryCount",
+      "fieldType": "Integer",
+      "options": {
+        "lob": true
+      }
+    },
+    {
+      "fieldName": "maxRetries",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "scheduledAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "sentAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "errorMessage",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "options": {
+        "lob": true
+      }
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "LUCNotifications",
+  "name": "Notification",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "dictionary",
+      "relationshipName": "status",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "notificationAttachment",
+      "relationshipName": "attachments",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}
