@@ -78,6 +78,14 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer(javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration) {
         return cm -> {
+            createCache(cm, com.teqbridgeltd.lucapp.notifications.domain.Dictionary.class.getName(), jcacheConfiguration);
+            createCache(cm, com.teqbridgeltd.lucapp.notifications.domain.Notification.class.getName(), jcacheConfiguration);
+            createCache(
+                cm,
+                com.teqbridgeltd.lucapp.notifications.domain.Notification.class.getName() + ".attachments",
+                jcacheConfiguration
+            );
+            createCache(cm, com.teqbridgeltd.lucapp.notifications.domain.NotificationAttachment.class.getName(), jcacheConfiguration);
             // jhipster-needle-redis-add-entry
         };
     }

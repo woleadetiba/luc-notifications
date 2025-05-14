@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (notificationAttachment(); as notificationAttachmentRef) {
+      <div>
+        <h2 data-cy="notificationAttachmentDetailsHeading">
+          <span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.detail.title">Notification Attachment</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.id">Id</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileName">File Name</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.fileName }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileType">File Type</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.fileType }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.fileSize">File Size</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.fileSize }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.filePath">File Path</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.filePath }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ notificationAttachmentRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotificationAttachment.notification">Notification</span></dt>
+          <dd>
+            @if (notificationAttachment()!.notification) {
+              <div>
+                <a [routerLink]="['/lucnotifications/notification', notificationAttachment()!.notification?.id, 'view']">{{
+                  notificationAttachmentRef.notification?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button
+          type="button"
+          [routerLink]="['/lucnotifications/notification-attachment', notificationAttachmentRef.id, 'edit']"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

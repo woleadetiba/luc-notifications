@@ -1,0 +1,29 @@
+{
+  "lucNotificationsApp": {
+    "lucNotificationsDictionary": {
+      "home": {
+        "title": "Dictionaries",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Dictionary",
+        "createOrEditLabel": "Create or edit a Dictionary",
+        "search": "Search for Dictionary",
+        "notFound": "No Dictionaries found"
+      },
+      "created": "A new Dictionary is created with identifier {{ param }}",
+      "updated": "A Dictionary is updated with identifier {{ param }}",
+      "deleted": "A Dictionary is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Dictionary {{ id }}?"
+      },
+      "detail": {
+        "title": "Dictionary"
+      },
+      "id": "Id",
+      "keyName": "Key Name",
+      "keyCode": "Key Code",
+      "label": "Label",
+      "description": "Description",
+      "notification": "Notification"
+    }
+  }
+}

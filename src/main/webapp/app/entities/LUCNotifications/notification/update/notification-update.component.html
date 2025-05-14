@@ -1,0 +1,202 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-notification-heading"
+        data-cy="NotificationCreateUpdateHeading"
+        jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.createOrEditLabel"
+      >
+        Create or edit a Notification
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label
+            class="form-label"
+            for="field_recipientEmails"
+            jhiTranslate="lucNotificationsApp.lucNotificationsNotification.recipientEmails"
+            >Recipient Emails</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="recipientEmails"
+            id="field_recipientEmails"
+            data-cy="recipientEmails"
+            formControlName="recipientEmails"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ccEmails" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.ccEmails"
+            >Cc Emails</label
+          >
+          <input type="text" class="form-control" name="ccEmails" id="field_ccEmails" data-cy="ccEmails" formControlName="ccEmails" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_subject" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.subject"
+            >Subject</label
+          >
+          <input type="text" class="form-control" name="subject" id="field_subject" data-cy="subject" formControlName="subject" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_messageBody" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.messageBody"
+            >Message Body</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="messageBody"
+            id="field_messageBody"
+            data-cy="messageBody"
+            formControlName="messageBody"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_retryCount" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.retryCount"
+            >Retry Count</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="retryCount"
+            id="field_retryCount"
+            data-cy="retryCount"
+            formControlName="retryCount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_maxRetries" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.maxRetries"
+            >Max Retries</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="maxRetries"
+            id="field_maxRetries"
+            data-cy="maxRetries"
+            formControlName="maxRetries"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_scheduledAt" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.scheduledAt"
+            >Scheduled At</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_scheduledAt"
+              data-cy="scheduledAt"
+              type="datetime-local"
+              class="form-control"
+              name="scheduledAt"
+              formControlName="scheduledAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sentAt" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.sentAt"
+            >Sent At</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_sentAt"
+              data-cy="sentAt"
+              type="datetime-local"
+              class="form-control"
+              name="sentAt"
+              formControlName="sentAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_errorMessage" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.errorMessage"
+            >Error Message</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="errorMessage"
+            id="field_errorMessage"
+            data-cy="errorMessage"
+            formControlName="errorMessage"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdAt"
+            >Created At</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdBy"
+            >Created By</label
+          >
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.status">Status</label>
+          <select
+            class="form-control"
+            id="field_status"
+            data-cy="status"
+            name="status"
+            formControlName="status"
+            [compareWith]="compareDictionary"
+          >
+            <option [ngValue]="null"></option>
+            @for (dictionaryOption of statusesCollection; track $index) {
+              <option [ngValue]="dictionaryOption">{{ dictionaryOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

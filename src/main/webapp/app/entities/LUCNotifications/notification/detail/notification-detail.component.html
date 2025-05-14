@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (notification(); as notificationRef) {
+      <div>
+        <h2 data-cy="notificationDetailsHeading">
+          <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.detail.title">Notification</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.id">Id</span></dt>
+          <dd>
+            <span>{{ notificationRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.recipientEmails">Recipient Emails</span></dt>
+          <dd>
+            <span>{{ notificationRef.recipientEmails }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.ccEmails">Cc Emails</span></dt>
+          <dd>
+            <span>{{ notificationRef.ccEmails }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.subject">Subject</span></dt>
+          <dd>
+            <span>{{ notificationRef.subject }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.messageBody">Message Body</span></dt>
+          <dd>
+            <span>{{ notificationRef.messageBody }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.retryCount">Retry Count</span></dt>
+          <dd>
+            <span>{{ notificationRef.retryCount }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.maxRetries">Max Retries</span></dt>
+          <dd>
+            <span>{{ notificationRef.maxRetries }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.scheduledAt">Scheduled At</span></dt>
+          <dd>
+            <span>{{ notificationRef.scheduledAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.sentAt">Sent At</span></dt>
+          <dd>
+            <span>{{ notificationRef.sentAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.errorMessage">Error Message</span></dt>
+          <dd>
+            <span>{{ notificationRef.errorMessage }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ notificationRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ notificationRef.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.status">Status</span></dt>
+          <dd>
+            @if (notification()!.status) {
+              <div>
+                <a [routerLink]="['/lucnotifications/dictionary', notification()!.status?.id, 'view']">{{ notificationRef.status?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/lucnotifications/notification', notificationRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

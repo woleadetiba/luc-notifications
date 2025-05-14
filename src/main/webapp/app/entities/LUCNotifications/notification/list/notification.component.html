@@ -1,0 +1,258 @@
+<div>
+  <h2 id="page-heading" data-cy="NotificationHeading">
+    <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.title">Notifications</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-notification"
+        [routerLink]="['/lucnotifications/notification/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.createLabel"
+          >Create a new Notification</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label class="visually-hidden" for="currentSearch" jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.search"
+          >Search for Notification</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="{{ 'lucNotificationsApp.lucNotificationsNotification.home.search' | translate }}"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters" />
+
+  @if (notifications().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.home.notFound">No Notifications found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.id">Id</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="recipientEmails">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.recipientEmails">Recipient Emails</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ccEmails">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.ccEmails">Cc Emails</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="subject">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.subject">Subject</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="messageBody">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.messageBody">Message Body</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="retryCount">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.retryCount">Retry Count</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="maxRetries">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.maxRetries">Max Retries</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="scheduledAt">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.scheduledAt">Scheduled At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="sentAt">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.sentAt">Sent At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="errorMessage">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.errorMessage">Error Message</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.createdBy">Created By</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status.id">
+              <div class="d-flex">
+                <span jhiTranslate="lucNotificationsApp.lucNotificationsNotification.status">Status</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (notification of notifications(); track trackId(notification)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/lucnotifications/notification', notification.id, 'view']">{{ notification.id }}</a>
+              </td>
+              <td>{{ notification.recipientEmails }}</td>
+              <td>{{ notification.ccEmails }}</td>
+              <td>{{ notification.subject }}</td>
+              <td>{{ notification.messageBody }}</td>
+              <td>{{ notification.retryCount }}</td>
+              <td>{{ notification.maxRetries }}</td>
+              <td>{{ notification.scheduledAt | formatMediumDatetime }}</td>
+              <td>{{ notification.sentAt | formatMediumDatetime }}</td>
+              <td>{{ notification.errorMessage }}</td>
+              <td>{{ notification.createdAt | formatMediumDatetime }}</td>
+              <td>{{ notification.createdBy }}</td>
+              <td>
+                @if (notification.status) {
+                  <div>
+                    <a [routerLink]="['/lucnotifications/dictionary', notification.status.id, 'view']">{{ notification.status.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/lucnotifications/notification-attachment']"
+                    [queryParams]="{ 'filter[notificationId.in]': notification.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('lucNotificationsApp.lucNotificationsNotification.attachments' | translate) }"
+                      >Show Attachments</span
+                    >
+                  </button>
+                  <a
+                    [routerLink]="['/lucnotifications/notification', notification.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/lucnotifications/notification', notification.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(notification)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (notifications().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page, totalItems, itemsPerPage }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

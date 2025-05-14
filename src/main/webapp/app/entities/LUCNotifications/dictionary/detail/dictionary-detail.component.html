@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (dictionary(); as dictionaryRef) {
+      <div>
+        <h2 data-cy="dictionaryDetailsHeading">
+          <span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.detail.title">Dictionary</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.id">Id</span></dt>
+          <dd>
+            <span>{{ dictionaryRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.keyName">Key Name</span></dt>
+          <dd>
+            <span>{{ dictionaryRef.keyName }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.keyCode">Key Code</span></dt>
+          <dd>
+            <span>{{ dictionaryRef.keyCode }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.label">Label</span></dt>
+          <dd>
+            <span>{{ dictionaryRef.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="lucNotificationsApp.lucNotificationsDictionary.description">Description</span></dt>
+          <dd>
+            <span>{{ dictionaryRef.description }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/lucnotifications/dictionary', dictionaryRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
