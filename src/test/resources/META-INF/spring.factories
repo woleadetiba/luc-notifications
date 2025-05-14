@@ -1,0 +1,7 @@
+org.springframework.test.context.ContextCustomizerFactory = \
+    com.teqbridgeltd.lucapp.notifications.config.\
+    SqlTestContainersSpringContextCustomizerFactory,com.teqbridgeltd.lucapp.\
+    notifications.config.TestContainersSpringContextCustomizerFactory,com.\
+    teqbridgeltd.lucapp.notifications.config.\
+    RedisTestContainersSpringContextCustomizerFactory,com.teqbridgeltd.lucapp.\
+    notifications.config.KafkaTestContainersSpringContextCustomizerFactory
